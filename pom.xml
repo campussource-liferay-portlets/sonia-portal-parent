@@ -1,287 +1,296 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
   
-  <parent>
-    <groupId>de.sonia.maven</groupId>
-    <artifactId>sonia-maven-parent</artifactId>
-    <version>1</version>
-  </parent>
-
-  <groupId>de.sonia.portal</groupId>
-  <artifactId>sonia-portal-parent</artifactId>
-  <packaging>pom</packaging>
-  <version>1-SNAPSHOT</version>
-  <name>${project.artifactId}</name>
-  <url>https://code.ostfalia.de/projects/${project.groupId}/${project.artifactId}</url>
- 
-  <dependencies>
-        
-    <dependency>
-      <groupId>de.sonia.portal</groupId>
-      <artifactId>sonia-portal-parent-base</artifactId>
-      <version>1-SNAPSHOT</version>
-      <type>pom</type>
-    </dependency>
-    
-    <!-- servlet api -->
-    
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-      <version>${servlet.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    
-    <!-- jsp api -->
-    
-    <dependency>
-      <groupId>javax.servlet.jsp</groupId>
-      <artifactId>jsp-api</artifactId>
-      <version>${jsp.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    
-    <!-- el api -->
-    
-    <dependency>
-      <groupId>javax.el</groupId>
-      <artifactId>el-api</artifactId>
-      <version>${el.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    
-    <!-- portlet api -->
-    
-    <dependency>
-      <groupId>javax.portlet</groupId>
-      <artifactId>portlet-api</artifactId>
-      <version>${portlet.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    
-    <!-- liferay -->
-    
-    <dependency>
-      <groupId>com.liferay.portal</groupId>
-      <artifactId>portal-service</artifactId>
-      <version>${liferay.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    
-    <dependency>
-      <groupId>com.liferay.portal</groupId>
-      <artifactId>util-java</artifactId>
-      <version>${liferay.version}</version>
-      <scope>provided</scope>
-    </dependency>
-        
-    <!-- jsf -->
-    
-    <dependency>
-      <groupId>com.sun.faces</groupId>
-      <artifactId>jsf-api</artifactId>
-      <version>${jsf.version}</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>com.sun.faces</groupId>
-      <artifactId>jsf-impl</artifactId>
-      <version>${jsf.version}</version>
-    </dependency>
-    
-    <!-- liferay faces -->
-    
-    <dependency>
-      <groupId>com.liferay.faces</groupId>
-      <artifactId>liferay-faces-portal</artifactId>
-      <version>${liferay-faces.version}</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>com.liferay.faces</groupId>
-      <artifactId>liferay-faces-bridge-impl</artifactId>
-      <version>${liferay-faces.version}</version>
-    </dependency>
-    
-    <dependency>
-      <artifactId>liferay-faces-alloy</artifactId>
-      <groupId>com.liferay.faces</groupId>
-      <version>${liferay-faces.version}</version>
-    </dependency>
-    
-    <!-- jboss el -->
-    
-    <dependency>
-      <groupId>org.jboss.spec.javax.el</groupId>
-      <artifactId>jboss-el-api_2.2_spec</artifactId>
-      <version>${jboss-el.version}</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>el-api</artifactId>
-          <groupId>javax.el</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-            
-    <!-- utils -->
-
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>${guava.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>de.sonia.commons</groupId>
-      <artifactId>sonia-commons-manifest</artifactId>
-      <version>${sonia-commons-manifest.version}</version>
-    </dependency>
-               
-  </dependencies>
-
- 
-  <build>
-    
-    <finalName>${project.artifactId}</finalName>
-    
-    <plugins>
-
-      <plugin>
+    <parent>
         <groupId>de.sonia.maven</groupId>
-        <artifactId>sonia-maven-native2utf8-plugin</artifactId>
-        <version>${sonia-maven-native2utf8-plugin.version}</version>
-          
-        <executions>
-          <execution>
-            <goals>
-              <goal>native2utf8</goal>
-            </goals>
-            <configuration>
-              <excludes>
-                <exclude>**/messages*properties</exclude>
-              </excludes>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>${maven-war-plugin.version}</version>
-        <configuration>
-          <archive>
-            <manifestEntries>
-              <Sonia-Name>${project.name}</Sonia-Name>
-              <Sonia-Version>${project.version}</Sonia-Version>
-              <Sonia-Build-Timestamp>${maven.build.timestamp}</Sonia-Build-Timestamp>
-            </manifestEntries>
-          </archive>
-          <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
-        </configuration>
-      </plugin>
-      
-      <plugin>
-        <groupId>com.liferay.maven.plugins</groupId>
-        <artifactId>liferay-maven-plugin</artifactId>
-        <version>${liferay.maven.plugin.version}</version>
-        <configuration>
-          <autoDeployDir>${liferay.auto.deploy.dir}</autoDeployDir>
-          <appServerDeployDir>${liferay.app.server.deploy.dir}</appServerDeployDir>
-          <appServerLibGlobalDir>${liferay.app.server.lib.global.dir}</appServerLibGlobalDir>
-          <appServerPortalDir>${liferay.app.server.portal.dir}</appServerPortalDir>
-          <liferayVersion>${liferay.version}</liferayVersion>
-          <pluginType>portlet</pluginType>
-        </configuration>
-      </plugin>
+        <artifactId>sonia-maven-parent</artifactId>
+        <version>1</version>
+    </parent>
 
-    </plugins>
-  </build>  
+    <groupId>de.sonia.portal</groupId>
+    <artifactId>sonia-portal-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>1-SNAPSHOT</version>
+    <name>${project.artifactId}</name>
+    <url>https://code.ostfalia.de/projects/${project.groupId}/${project.artifactId}</url>
  
-  <profiles>
-    <profile>
-      <id>jenkins</id>
-      
-      <activation>
-        <property>
-          <name>env.BUILD_ID</name>
-        </property>
-      </activation>
-      
-      <build>
-        <plugins>
-          
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-war-plugin</artifactId>
-            <version>${maven-war-plugin.version}</version>
-            <configuration>
-              <archive>
-                <manifestEntries>
-                  <Sonia-Name>${project.name}</Sonia-Name>
-                  <Sonia-Version>${project.version}</Sonia-Version>
-                  <Sonia-Build-Timestamp>${maven.build.timestamp}</Sonia-Build-Timestamp>
-                  <Sonia-Build-Number>${env.BUILD_NUMBER}</Sonia-Build-Number>
-                  <Sonia-Build-Node>${env.NODE_NAME}</Sonia-Build-Node>
-                  <Sonia-Revision>${env.MERCURIAL_REVISION}</Sonia-Revision>
-                </manifestEntries>
-              </archive>
-              <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
-            </configuration>
-          </plugin>
-      
-        </plugins>
-      </build>
-      
-      <properties>
-        <jsf.stage>Production</jsf.stage>
-      </properties>  
-    </profile>
-    
-    <profile>
-      <id>release</id>
-      
-      <properties>
-        <jsf.stage>Production</jsf.stage>
-      </properties>      
-    </profile>
-
-    <profile>
-      <id>development</id>
-      
-      <properties>
-        <jsf.stage>Development</jsf.stage>
-      </properties>      
-    </profile>
-  </profiles>
-
-  <properties>
-   
-    <!-- liferay -->
-    <liferay.version>6.2.5</liferay.version>
-    <liferay.maven.plugin.version>6.2.10.11</liferay.maven.plugin.version>
-    <liferay-faces.version>3.2.4-ga5</liferay-faces.version>
-
-    <!-- specs & implementations -->
-    <el.version>1.0</el.version>
-    <jboss-el.version>1.0.6.Final</jboss-el.version>
-    <jsf.version>2.1.28</jsf.version>    
-    <jsp.version>2.0</jsp.version>
-    <jstl.version>1.2</jstl.version>
-    <portlet.version>2.0</portlet.version>
-    <servlet.version>2.5</servlet.version>
+    <dependencies>
         
-    <!-- sonia -->
-    <sonia-acs-client.version>1.4.8</sonia-acs-client.version>
-    <sonia-portal-alloy-faces.version>2.0.1</sonia-portal-alloy-faces.version>
-    <sonia-commons-manifest.version>1.0.0</sonia-commons-manifest.version>
-    <sonia-portal-lib-faces.version>1.1.0</sonia-portal-lib-faces.version>
-    <sonia-portal-system.version>1.0.0-SNAPSHOT</sonia-portal-system.version>
-    <sonia-portal-theme.version>1.0.0-SNAPSHOT</sonia-portal-theme.version>
+        <dependency>
+            <groupId>de.sonia.portal</groupId>
+            <artifactId>sonia-portal-parent-base</artifactId>
+            <version>1-SNAPSHOT</version>
+            <type>pom</type>
+        </dependency>
+    
+        <!-- servlet api -->
+    
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    
+        <!-- jsp api -->
+    
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>${jsp.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    
+        <!-- el api -->
+    
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>el-api</artifactId>
+            <version>${el.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    
+    
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>el-impl</artifactId>
+            <version>2.2</version>
+        </dependency>
+    
+        <!-- portlet api -->
+    
+        <dependency>
+            <groupId>javax.portlet</groupId>
+            <artifactId>portlet-api</artifactId>
+            <version>${portlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    
+        <!-- liferay -->
+    
+        <dependency>
+            <groupId>com.liferay.portal</groupId>
+            <artifactId>portal-service</artifactId>
+            <version>${liferay.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    
+        <dependency>
+            <groupId>com.liferay.portal</groupId>
+            <artifactId>util-java</artifactId>
+            <version>${liferay.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!-- jsf -->
+    
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>${jsf.version}</version>
+        </dependency>
+    
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>${jsf.version}</version>
+        </dependency>
+    
+        <!-- liferay faces -->
+    
+        <dependency>
+            <groupId>com.liferay.faces</groupId>
+            <artifactId>liferay-faces-portal</artifactId>
+            <version>${liferay-faces.version}</version>
+        </dependency>
+    
+        <dependency>
+            <groupId>com.liferay.faces</groupId>
+            <artifactId>liferay-faces-bridge-impl</artifactId>
+            <version>${liferay-faces.version}</version>
+        </dependency>
+    
+        <dependency>
+            <artifactId>liferay-faces-alloy</artifactId>
+            <groupId>com.liferay.faces</groupId>
+            <version>${liferay-faces.version}</version>
+        </dependency>
+    
+        <!-- jboss el 
+    
+        <dependency>
+            <groupId>org.jboss.spec.javax.el</groupId>
+            <artifactId>jboss-el-api_2.2_spec</artifactId>
+            <version>${jboss-el.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>el-api</artifactId>
+                    <groupId>javax.el</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+            
+            -->
+            
+        <!-- utils -->
 
-    <jsf.stage>Production</jsf.stage>
-  </properties>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.sonia.commons</groupId>
+            <artifactId>sonia-commons-manifest</artifactId>
+            <version>${sonia-commons-manifest.version}</version>
+        </dependency>
+               
+    </dependencies>
+
+ 
+    <build>
+    
+        <finalName>${project.artifactId}</finalName>
+    
+        <plugins>
+
+            <plugin>
+                <groupId>de.sonia.maven</groupId>
+                <artifactId>sonia-maven-native2utf8-plugin</artifactId>
+                <version>${sonia-maven-native2utf8-plugin.version}</version>
+          
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>native2utf8</goal>
+                        </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/messages*properties</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+      
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${maven-war-plugin.version}</version>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Sonia-Name>${project.name}</Sonia-Name>
+                            <Sonia-Version>${project.version}</Sonia-Version>
+                            <Sonia-Build-Timestamp>${maven.build.timestamp}</Sonia-Build-Timestamp>
+                        </manifestEntries>
+                    </archive>
+                    <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
+                </configuration>
+            </plugin>
+      
+            <plugin>
+                <groupId>com.liferay.maven.plugins</groupId>
+                <artifactId>liferay-maven-plugin</artifactId>
+                <version>${liferay.maven.plugin.version}</version>
+                <configuration>
+                    <autoDeployDir>${liferay.auto.deploy.dir}</autoDeployDir>
+                    <appServerDeployDir>${liferay.app.server.deploy.dir}</appServerDeployDir>
+                    <appServerLibGlobalDir>${liferay.app.server.lib.global.dir}</appServerLibGlobalDir>
+                    <appServerPortalDir>${liferay.app.server.portal.dir}</appServerPortalDir>
+                    <liferayVersion>${liferay.version}</liferayVersion>
+                    <pluginType>portlet</pluginType>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>  
+ 
+    <profiles>
+        <profile>
+            <id>jenkins</id>
+      
+            <activation>
+                <property>
+                    <name>env.BUILD_ID</name>
+                </property>
+            </activation>
+      
+            <build>
+                <plugins>
+          
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>${maven-war-plugin.version}</version>
+                        <configuration>
+                            <archive>
+                                <manifestEntries>
+                                    <Sonia-Name>${project.name}</Sonia-Name>
+                                    <Sonia-Version>${project.version}</Sonia-Version>
+                                    <Sonia-Build-Timestamp>${maven.build.timestamp}</Sonia-Build-Timestamp>
+                                    <Sonia-Build-Number>${env.BUILD_NUMBER}</Sonia-Build-Number>
+                                    <Sonia-Build-Node>${env.NODE_NAME}</Sonia-Build-Node>
+                                    <Sonia-Revision>${env.MERCURIAL_REVISION}</Sonia-Revision>
+                                </manifestEntries>
+                            </archive>
+                            <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
+                        </configuration>
+                    </plugin>
+      
+                </plugins>
+            </build>
+      
+            <properties>
+                <jsf.stage>Production</jsf.stage>
+            </properties>  
+        </profile>
+    
+        <profile>
+            <id>release</id>
+      
+            <properties>
+                <jsf.stage>Production</jsf.stage>
+            </properties>      
+        </profile>
+
+        <profile>
+            <id>development</id>
+      
+            <properties>
+                <jsf.stage>Development</jsf.stage>
+            </properties>      
+        </profile>
+    </profiles>
+
+    <properties>
+   
+        <!-- liferay -->
+        <liferay.version>6.2.5</liferay.version>
+        <liferay.maven.plugin.version>6.2.10.11</liferay.maven.plugin.version>
+        <liferay-faces.version>3.2.4-ga5</liferay-faces.version>
+
+        <!-- specs & implementations -->
+        <el.version>1.0</el.version>
+        <jboss-el.version>1.0.6.Final</jboss-el.version>
+        <jsf.version>2.1.28</jsf.version>    
+        <jsp.version>2.1</jsp.version>
+        <jstl.version>1.2</jstl.version>
+        <portlet.version>2.0</portlet.version>
+        <servlet.version>2.5</servlet.version>
+        
+        <!-- sonia -->
+        <sonia-acs-client.version>1.4.8</sonia-acs-client.version>
+        <sonia-portal-alloy-faces.version>2.0.1</sonia-portal-alloy-faces.version>
+        <sonia-commons-manifest.version>1.0.0</sonia-commons-manifest.version>
+        <sonia-portal-lib-faces.version>1.1.0</sonia-portal-lib-faces.version>
+        <sonia-portal-system.version>1.0.0-SNAPSHOT</sonia-portal-system.version>
+        <sonia-portal-theme.version>1.0.0-SNAPSHOT</sonia-portal-theme.version>
+
+        <jsf.stage>Production</jsf.stage>
+    </properties>
   
 </project>
